@@ -1,0 +1,49 @@
+# Node / JavaScript
+# dependencies
+# Ignorar cualquier carpeta node_modules/ en cualquier nivel de profundidad
+**/node_modules
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+*.log
+
+# runtime data
+pids
+*.pid
+*.pid.lock
+
+# coverage
+coverage/
+
+# build output
+build/
+dist/
+out/
+
+# Next.js / React build folders
+.next/
+/.parcel-cache/
+.cache/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# npm pack
+*.tgz
+
+# Misc
+.yarn-integrity
+# End of file
