@@ -1,0 +1,234 @@
+/* Definición de variables CSS para los colores */
+:root {
+  --color-dark: #121212; /* Negro muy oscuro para fondo general */
+  --color-surface: #1e1e1e; /* Negro menos oscuro para contenedores */
+  --color-primary: #8a2be2; /* Morado Vibrante (Blue Violet) */
+  --color-primary-dark: #6a0dad; /* Morado Oscuro para hover/activo */
+  --color-secondary: #ff00ff; /* Magenta/Morado Claro para acentos */
+  --color-text-light: #ffffff; /* Blanco para texto principal */
+  --color-text-faded: #cccccc; /* Gris claro para texto secundario */
+  --color-danger: #dc3545; /* Rojo para eliminar */
+}
+
+/* Estilos Generales */
+.App {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-dark);
+  color: var(--color-text-light);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Encabezado */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px 0;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.header-title {
+  color: var(--color-primary);
+  font-size: 2.5em;
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.5); /* Sombra morada */
+}
+
+/* Títulos de Sección */
+.section-title {
+  color: var(--color-secondary);
+  border-bottom: 1px solid var(--color-primary-dark);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+/* --- ESTILOS DEL FORMULARIO --- */
+.form-section {
+  background-color: var(--color-surface);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 25px var(--color-primary-dark);
+}
+
+.data-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--color-text-faded);
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
+  background-color: #2a2a2a; /* Fondo de input más oscuro */
+  color: var(--color-text-light);
+  font-size: 1em;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 10px var(--color-primary);
+  outline: none;
+}
+
+/* Botón de Submit */
+.submit-button {
+  grid-column: 1 / -1; /* Ocupa todo el ancho en el grid */
+  padding: 12px 20px;
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  margin-top: 15px;
+}
+
+.submit-button:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+/* --- ESTILOS DE LA TABLA --- */
+.table-section {
+  background-color: var(--color-surface);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 25px var(--color-primary-dark);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.employees-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.employees-table th, 
+.employees-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #333; /* Borde sutil */
+}
+
+/* Encabezados de Tabla */
+.employees-table th {
+  background-color: var(--color-primary-dark);
+  color: var(--color-text-light);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Filas de la tabla */
+.employees-table tbody tr {
+  background-color: #242424; /* Fondo de fila ligeramente distinto */
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.employees-table tbody tr:hover {
+  background-color: #383838; /* Resaltar al pasar el mouse */
+}
+
+/* Fila en modo edición */
+.employees-table tbody tr.editing {
+  background-color: rgba(255, 0, 255, 0.15); /* Fondo morado claro para resaltar la edición */
+  box-shadow: 0 0 10px var(--color-secondary);
+}
+
+/* Celdas de Acción */
+.actions-cell {
+  white-space: nowrap; /* Evita que los botones se rompan de línea */
+}
+
+/* Botones de Acción */
+.action-button {
+  padding: 8px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.3s, transform 0.2s;
+}
+
+.action-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.edit-button {
+  background-color: var(--color-primary); /* Morado */
+  color: var(--color-text-light);
+}
+
+.edit-button:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.delete-button {
+  background-color: var(--color-danger); /* Rojo */
+  color: var(--color-text-light);
+}
+
+.delete-button:hover:not(:disabled) {
+  background-color: #bd2130;
+}
+
+.no-data-message {
+  text-align: center;
+  color: var(--color-text-faded);
+  padding: 20px;
+  font-style: italic;
+  border: 1px dashed var(--color-primary-dark);
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 2em;
+  }
+  
+  .container {
+    padding: 0 10px;
+  }
+  
+  .form-section, .table-section {
+    padding: 20px;
+  }
+  
+  .data-form {
+    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+  }
+}
