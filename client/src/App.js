@@ -8,6 +8,9 @@ function App() {
   const [pais, setPais] = useState('');
   const [cargo, setCargo] = useState('');
   const [anios, setAnios] = useState('');
+  const [genero, setGenero] = useState('');
+  const [celular, setCelular] = useState('');
+  const [correo, setCorreo] = useState('');
 
   // lista que contiene todos los empleados registrados
   const [registros , setRegistros] = useState([]); // arreglo con los empleados obtenidos del backend
@@ -36,7 +39,7 @@ function App() {
   const registrarDatos = async (e) => {
     e.preventDefault(); // evitamos que se recargue la pagina al enviar el formulario
 
-    if (nombre.trim() === '' || pais.trim() === '' || cargo.trim() === '') {
+    if (nombre.trim() === '' || pais.trim() === '' || cargo.trim() === '' || genero.trim() === '' || celular.toString().trim() === '' || correo.trim() === '') {
         alert('Por favor, rellena todos los campos de texto.');
         return;
     }
@@ -50,7 +53,7 @@ function App() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ nombre, edad, pais, cargo, anios }),
+          body: JSON.stringify({ nombre, edad, pais, cargo, anios, genero, celular, correo }),
         });
         
         // Asumimos que el backend retorna el empleado actualizado, o simplemente chequeamos `response.ok`
@@ -64,7 +67,10 @@ function App() {
             edad, 
             pais, 
             cargo, 
-            anios 
+            anios,
+            genero,
+            celular,
+            correo
           };
           setRegistros(nuevosRegistros);
           setEditIndex(null);
@@ -84,7 +90,7 @@ function App() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ nombre, edad, pais, cargo, anios }),
+          body: JSON.stringify({ nombre, edad, pais, cargo, anios, genero, celular, correo }),
         });
 
         const data = await response.json();
@@ -108,6 +114,9 @@ function App() {
     setPais('');
     setCargo('');
     setAnios(0);
+    setGenero('');
+    setCelular('');
+    setCorreo('');
   };
 
   const eliminarEmpleado = async (index) => {
@@ -128,6 +137,9 @@ function App() {
           setPais('');
           setCargo('');
           setAnios(0);
+          setGenero('');
+          setCelular('');
+          setCorreo('');
         }
         alert('Empleado eliminado correctamente');
       } else {
@@ -146,6 +158,9 @@ function App() {
     setPais(empleado.pais);
     setCargo(empleado.cargo);
     setAnios(empleado.anios);
+    setGenero(empleado.genero);
+    setCelular(empleado.celular);
+    setCorreo(empleado.correo);
     setEditIndex(index);
   };
   
@@ -208,6 +223,39 @@ function App() {
                 required
               />
             </div>
+
+            <div className='form-group'>
+              <label htmlFor='genero'>Género:</label>
+              <input 
+                type='text' 
+                id='genero' 
+                value={genero}
+                onChange={(e) => setGenero(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='correo'>Correo:</label>
+              <input 
+                type='email' 
+                id='correo' 
+                value={correo}
+                onChange={(e) => setCorreo(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='celular'>Celular:</label>
+              <input 
+                type='text' 
+                id='celular' 
+                value={celular}
+                onChange={(e) => setCelular(e.target.value)}
+                required
+              />
+            </div>
             
             <div className='form-group'>
               <label htmlFor='anios'>Años de Experiencia:</label>
@@ -240,6 +288,9 @@ function App() {
                   <th>Edad</th>
                   <th>País</th>
                   <th>Cargo</th>
+                  <th>Género</th>
+                  <th>Correo</th>
+                  <th>Celular</th>
                   <th>Años</th>
                   <th>Acciones</th>
                 </tr>
@@ -251,6 +302,9 @@ function App() {
                     <td>{empleado.edad}</td>
                     <td>{empleado.pais}</td>
                     <td>{empleado.cargo}</td>
+                    <td>{empleado.genero}</td>
+                    <td>{empleado.correo}</td>
+                    <td>{empleado.celular}</td>
                     <td>{empleado.anios}</td>
                     <td className='actions-cell'>
                       <button 

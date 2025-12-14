@@ -21,23 +21,22 @@ app.get('/empleados', (req, res) => {
 
 // POST = guardar
 app.post('/empleados', (req, res) => {
-    const { nombre, edad, pais, cargo, anios } = req.body;
+    const { nombre, edad, pais, cargo, anios, genero, celular, correo } = req.body;
 
-    const sql = 'INSERT INTO empleados (nombre, edad, pais, cargo, anios) VALUES (?, ?, ?, ?, ?)';
+    const sql = 'INSERT INTO empleados (nombre, edad, pais, cargo, anios, genero, celular, correo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
-    db.query(sql, [nombre, edad, pais, cargo, anios], (err, results) => {
+    db.query(sql, [nombre, edad, pais, cargo, anios, genero, celular, correo], (err, results) => {
         if (err){
-            return res.status(500).json({error: "error al guardar los datos del empleado..."});
+            return res.status(500).json({error: "error al guardar los datos del empleado...", details: err});
         }
 
-        return res.json({
-            message: 'empleado guardado correctamente',
-            id: results.insertId,
-            nombre,
-            edad,
-            pais,
-            cargo,
-            anios
+        // devolver el registro insertado completo
+        const selectSql = 'SELECT * FROM empleados WHERE id = ?';
+        db.query(selectSql, [results.insertId], (err2, rows) => {
+            if (err2) {
+                return res.status(500).json({error: 'empleado guardado pero error al obtener el registro', details: err2});
+            }
+            return res.json(rows[0]);
         });
     });
 });
@@ -45,22 +44,19 @@ app.post('/empleados', (req, res) => {
 // PUT - actualizar
 app.put('/empleados/:id', (req, res) => {
     const { id } = req.params
-    const { nombre, edad, pais, cargo, anios } = req.body;
+    const { nombre, edad, pais, cargo, anios, genero, celular, correo } = req.body;
 
-    const sql = 'UPDATE empleados SET nombre= ?, edad= ?, pais= ?, cargo= ?, anios= ? WHERE id= ?';
-    db.query(sql, [nombre, edad, pais, cargo, anios, id], (err, results) => {
+    const sql = 'UPDATE empleados SET nombre= ?, edad= ?, pais= ?, cargo= ?, anios= ?, genero= ?, celular= ?, correo= ? WHERE id= ?';
+    db.query(sql, [nombre, edad, pais, cargo, anios, genero, celular, correo, id], (err, results) => {
         if (err){
             return res.status(500).json({error: "error al actualizar el empleado"});
         }
 
-        return res.json({
-            message: 'empleado actualizado correctamente',
-            id,
-            nombre,
-            edad,
-            pais,
-            cargo,
-            anios
+        // devolver el empleado actualizado
+        const selectSql = 'SELECT * FROM empleados WHERE id = ?';
+        db.query(selectSql, [id], (err2, rows) => {
+            if (err2) return res.status(500).json({error: 'error al obtener empleado actualizado', details: err2});
+            return res.json(rows[0]);
         });
     });
 });
