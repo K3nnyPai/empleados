@@ -20,10 +20,10 @@
 }
 
 .container {
-  max-width: 1400px; /* Aumenté un poco el ancho máximo para que quepan bien los dos lados */
+  max-width: 1800px; /* Aumente el ancho máximo para más espacio horizontal */
   margin: 0 auto;
   display: flex;
-  flex-direction: row; /* AQUI ESTA EL CAMBIO: los pone lado a lado */
+  flex-direction: row; /* mantener lado a lado en pantallas grandes */
   align-items: flex-start; /* Evita que se estiren a lo alto innecesariamente */
   gap: 30px;
 }
@@ -52,15 +52,16 @@
 
 /* --- ESTILOS DEL FORMULARIO --- */
 .form-section {
-  flex: 1; /* Ocupa 1 parte del espacio disponible */
-  min-width: 300px; /* Ancho mínimo para que no se aplaste */
+  flex: 0 0 300px; /* Más estrecho: 300px fijo para el formulario */
+  max-width: 320px;
+  min-width: 260px;
   background-color: var(--color-surface);
-  padding: 30px;
+  padding: 22px;
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 25px var(--color-primary-dark);
-  /* Altura pegajosa (opcional): si la lista es muy larga, el formulario se queda fijo al bajar */
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.45), 0 0 20px var(--color-primary-dark);
+  /* Mantener sticky en pantallas grandes */
   position: sticky;
-  top: 20px; 
+  top: 20px;
 }
 
 .data-form {
@@ -123,7 +124,7 @@
 
 /* --- ESTILOS DE LA TABLA --- */
 .table-section {
-  flex: 2; /* Ocupa 2 partes del espacio (es más ancha que el formulario) */
+  flex: 2 1 0; /* Ocupa mucho más espacio que el formulario */
   background-color: var(--color-surface);
   padding: 30px;
   border-radius: 12px;
@@ -145,6 +146,10 @@
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #333; /* Borde sutil */
+  vertical-align: middle;
+  /* Permitir que el contenido largo haga wrap en varias líneas en lugar de forzar overflow */
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* Encabezados de Tabla */
@@ -153,6 +158,9 @@
   color: var(--color-text-light);
   font-weight: bold;
   text-transform: uppercase;
+  white-space: nowrap; /* ¡IMPORTANTE! Esto evita que los títulos se partan en dos líneas */
+  padding: 15px; /* Un poco más de aire */
+  font-size: 0.9rem; /* Letra un pelín más chica para que quepa todo mejor */
 }
 
 /* Filas de la tabla */
@@ -176,15 +184,34 @@
   white-space: nowrap; /* Evita que los botones se rompan de línea */
 }
 
+/* Limitar ancho de columnas que suelen tener texto largo (correo, país, cargo) */
+.employees-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #333;
+  vertical-align: middle; /* Centrado verticalmente */
+  font-size: 0.95rem;
+}
+.employees-table td.actions-cell {
+  display: flex;
+  flex-direction: column; /* Esto los pone uno debajo del otro */
+  gap: 5px; /* Espacio entre los botones */
+  align-items: stretch; /* Estira los botones para que tengan el mismo ancho */
+  border-bottom: none; /* Quitamos borde interno para que no se duplique visualmente */
+  padding: 8px; /* Un poco menos de padding para que no quede gigante la fila */
+}
+
+.employees-table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
 /* Botones de Acción */
+/* Ajustamos los botones para que se vean bien apilados */
 .action-button {
-  padding: 8px 12px;
-  margin-right: 8px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: opacity 0.3s, transform 0.2s;
+  width: 100%; /* Que ocupen todo el ancho de la columna de acciones */
+  margin-right: 0; /* Quitamos el margen derecho que tenian antes */
+  padding: 6px 10px; /* Botones un poco más compactos */
+  text-align: center;
+  font-size: 0.9em;
 }
 
 .action-button:disabled {
